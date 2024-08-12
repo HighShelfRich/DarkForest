@@ -1,0 +1,422 @@
+
+
+10 REM***********************
+20 REM*** THE DARK FOREST ***
+30 REM***********************
+50 GOSUB 2630
+55 POKE 53280,0:POKE 53281,11
+60 PRINT ".":PRINT ".............the dark forest"
+65 rem clr scrn dwn crsr right crsr blk
+70 print "..........press any key to start"
+75 rem crsr dn crsr rht crsr blk
+80 gosub 3320
+90 get a$:if a$="" then 90
+100 print "........you have dared to enter...":for dd=1 to 1000:next dd
+110 print "..............good luck"
+120 for td=1 to 1000:next td
+130 for td=1 to 1500:next td:print".":rem clr scrn
+140 gosub 3370:gosub 730:print
+150 if n$="n" and z(b,1)<>0 then b=z(b,1)
+160 if n$="s" and z(b,2)<>0 then b=z(b,2)
+170 if n$="e" and z(b,3)<>0 then b=z(b,3)
+180 if n$="w" and z(b,4)<>0 then b=z(b,4)
+190 if n$<>"r" then 230
+200 cs=int((b+10)/10):print "..o.k. you can sleep here but it will"
+201 rem rgt crsr
+205 print "cost you";cs;"coin/s for every hours uninterrupted rest":print
+210 input "how many hours";h
+215 if h<1 or m(2)-(h*cs)<0 then print "try again sleepy!!":goto 210
+220 m(2)=m(2)-(h*cs):m(1)=m(1)+h:print "................zzzzzzzzzz"
+221 rem clr scrn dwn crsr right crsr
+222 for dd=1 to 500*h:next dd:print ".":gosub 730:goto 250:rem clr scrn
+230 if chk=b then print "cannot move in that direction":gosub 3150:goto 26
+0
+240 chk=b
+250 if b>10 then goto 254
+252 on b gosub 980,1000,1020,1170,1200,1250,1270,1290,1310,1420:goto 270
+254 b=b-10:on b gosub 1610,1630,1660,1680,1700,1850,1880,1910,1930,1950:b=
+b+10
+260 if z(b,5)<>0 then 300
+270 gosub 790
+280 print:input "what now";n$:n$=left$(n$,1)
+290 goto 130
+300 rem *** monster/fight ***
+310 mn=z(b,5):print
+320 if mn=1 then print "a band of 10 robbers seize you":e=40
+330 if mn=2 then gosub 3410
+340 if mn=3 then print "sir rufus of gascony attacks...":e=20
+350 if mn=4 then print "a ferocious bear pounces":e=20
+360 if mn=5 then print "you hear the war cry of the black knight":e=60
+370 input "will you fight or run";f$:f$=left$(f$,1)
+380 print:if f$="f" then 410
+390 if rnd(1)>0.4 then input "which direction, coward";n$:m(1)=m(1)-4:goto
+ 130
+400 print "no!   you must stand and fight"
+405 print "you lose 10 strength":m(1)=m(1)-10
+410 rem *** fight ***
+420 z(b,5)=0:ro=int(19*rnd(1))+1
+430 if z(ro,5)=0 then z(ro,5)=mn:goto 440
+435 if z(ro,5)<>0 then goto 420
+440 print "which attribute do you wish to fight    with (enter word)"
+445 input a$
+450 if a$="strength" then a=1
+460 if a$="money" then a=2
+470 if a$="magic" then a=3:e=int(e/10)
+480 if a=1 and m(1)<1 then 2910
+490 if a=2 and m(a)<1 then print "cannot use money":goto 440
+500 if a=3 and m(a)<1 then print "cannot use magic"
+510 print ".":if m(a)>60 then dd=m(a)-60:m(a)=60
+515 rem+++clr scrn
+530 print "...........the battle commences..."
+535 rem clr scrn down right
+540 print " you: ";
+541 rem down crsr
+545 for tx=1 to m(a):print "Q";:next:rem shift key + q
+546 print
+548 print ".enemy: ";
+550 for xt=1 to e:print "Q";:next:rem shift key + q
+560 gosub 3390
+570 rem *** main fight loop ***
+580 if int(7*rnd(1))=4 then goto 600
+590 e=e-1
+600 gosub 3390
+610 if int(3*rnd(1))=1 then goto 630
+620 m(a)=m(a)-1
+630 gosub 3390
+640 if e>0 and m(a)>0 then goto 530
+650 if m(a)<1 then goto 2910
+660 print "you win!!.":rem dncrsr white
+670 gosub 3390
+680 er=int(40*rnd(1))+1:bv=int(7*rnd(1))+1
+690 if bv<4 then print "you gain";er;"strength":m(1)=m(1)+er+dd
+700 if bv<7 and bv>3 then print "you gain";er;"money units":m(2)=m(2)+er+d
+d
+710 if bv=7 then er=int(er/10)+1:print "you gain";er;"magic spells"
+715 if bv=7 then m(3)=m(3)+er+dd
+720 for t=1 to 1500:next t:print ".":goto 250:rem clr scrn
+730 rem *** attributes ***
+740 m(1)=m(1)-1:if m(1)<1 then 2910
+750 print "strength: ";int(m(1))
+760 print "money: ";m(2)
+770 print "magic: ";m(3)
+780 return
+790 if rnd(1)>0.8 and b<>1 and b<>15 and b<>20 then ps=int(5*rnd(1))+1:got
+o 810
+800 return
+810 if ps=1 then print " an old glass bottle is within reach.  it is cover
+ed";
+815 if ps=1 then print " in cobwebs"
+820 if ps=2 then print " here is a large oak chest.  a weird":print "sign 
+is":
+825 if ps=2 then print " carved on the lid"
+830 if ps=3 then print " a vellum book lies by your feet"
+840 if ps=4 then print " a gold locket on a chain is close to":print "you"
+
+850 if ps=5 then print " before you is a box of exotic fruit"
+860 rem *** possessions ***
+870 input "do you want to open it";op$
+880 print:if left$(op$,1)<>"y" then return
+885 if rnd(1)<0.7 then goto 900
+890 print "an evil orc leaps out and attacks you"
+894 for tt=1 to 1000:next tt:print "after a brief struggle it runs away"
+896 print "leaving you weak and tired":m(1)=m(1)-(m(1)/4):ps=0
+900 if ps=1 then print "a large cloud of smoke appears  the":print "essenc
+e";
+905 if ps=1 then print " gives you new strength and life":m(1)+8
+910 if ps=2 then print "much treasure is contained in the chest"
+915 if ps=2 then print "you are a rich man":m(2)=m(2)+35+int(15*rnd(1))
+920 if ps=3 then print "it contains 6 powerful spells":m(3)=m(3)+6
+930 if ps=4 then print "it has a small potrait of the beautiful"
+935 if ps=4 then print "princess caroline  it is quite valuable":m(2)=m(2)
++10
+940 if ps=5 then print "you are so tempted that you eat several"
+945 if ps=5 then print "they are delicious and add to your strength"
+947 if ps=5 then m(1)=m(1)+12
+950 print:print "****** press any key to continue *******"
+960 get a$:if a$="" goto 960
+965 print ".":return:rem clr scn
+970 rem *** locations ***
+980 print "you are in a small clearing in the dark forest you can procede 
+in";
+985 print " any direction you wish"
+990 return
+1000 print "your view from oakridge hill is":print "magnificent, you can s
+ee";
+1005 print " grendal the    hermit's lodge in the distance"
+1010 return
+1020 print "you have found yourself in a peaceful   field":print
+1030 print "there is a small empty well next to you do you want to go down
+ it";
+1032 print "(y/n)"
+1035 input q$
+1040 if q$="n" then print "all right stay in the field then":return
+1050 if int(3*rnd(1))=1 then 1120
+1060 poke 53280,0:poke 53281,0:print ".":rem clear screen
+1070 for xx=1 to 39
+1080 print tab(xx) ".*":for td=1 to 100:next td:rem white
+1090 next xx
+1095 print "...............splash!!";for td=1 to 1000:next td
+1096 rem down crsr right crsr
+1097 poke 53280,0:poke 53281,11
+1100 print ".how silly of me, i thought it was empty"
+1101 rem clr screen down crsr
+1105 m(1)=10:m(2)=10:m(3)=1:b=1
+1110 print:rem i had to split line in book it just did not fit for me
+1111 print "you do manage to get out, but you lose  much money and strengt
+h"
+1115 goto 1150
+1120 print:print "a small niche in the wall hides a gold"
+1125 print "figure, the ram of anag"
+1130 print "carved on the base is the word .grandose.":rem lt right white
+1135 print "the figure is valuable  look after it"
+1140 p=1:m(3)=m(3)+1:m(2)=m(2)+5
+1150 print:print "****** press any key to continue *******"
+1160 get a$:if a$="" then goto 1160
+1165 gosub 730:return
+1170 print "the baron's house is near by you can    hear music...."
+1190 return
+1200 print "you are in a damp hut with a leaky roof a musty smell lingers"
+;
+1202 print " and there is      another room to the right"
+1210 for td=1 to 1500:next td
+1220 gosub 3150
+1230 print "what's this? a small door in front of   you (n)"
+1240 return
+1250 print "around you is a sparsely filled store   room   this is a dead 
+end"
+1260 return
+1270 print "you stand in the middle of berry hamlet it is very quiet the "
+;
+1275 print "place seems        deserted"
+1280 return
+1290 print "you are on a grassy hill sloping    .   downwards into a valle
+y";
+1295 print "   a small hamletlies at the northern end"
+1300 return
+1310 print " you are standing outside a woodcutter'shut  enter at your own
+ ":
+1315 print "peril":gosub 3150
+1320 print:print "type in right code to enter hut":input e$:print
+1330 f$="ivorymagicsilvergrendrufusdiamoberrybaron"
+1340 for t=1 to int(8*rnd(1))+1:ff$=mid$(f$,t*5-4,5):next t
+1345 if left$(e$,5)=ff$ or (e$="dragon" and p=1) then 1360
+1350 print "you have used the wrong code  you have  been chased away by";
+1355 print " the woodsman into   another part of the forest"
+1357 b=int(3*rnd(1))+2:m(1)=m(1)-8:return
+1360 print "correct code!! enter hut by heading 'n'";return
+1370 print n$="n":return
+1420 print ".":poke 53280,0:poke 53281,0:gosub 3320:rem clr screen
+1430 for t=1 to 1000:next t:poke 53280,0:poke 53281,11
+1440 print "you fell into a bear trap and were      caught by the black";
+1445 print " knight"
+1450 for t=1 to 1000:next t:print "he has impriosned you"
+1460 input "what now";n$:if n$<>"grandos" then 1480
+1463 print "close, but wrong . you should have     thought about the";
+1465 print " figures name":print "the ram of anag...the ang ram"
+1470 if n$="dragons" and p=1 then gosub sound:print ".":rem clear screen
+1480 if n$="dragons" and p=1 then print ".....the magic word!!"
+1481 rem down crsr right crsr
+1482 if n$<>"dragons" then 1490
+1485 if p=1 then print"you are free again, but you lost the    gold figure
+"
+1487 rem down crsr
+1488 if n$="dragons" and p=1 then p=0:b=1:return
+1490 print :print "you failed and are imprisoned forever":end
+1500 gosub 1380
+1510 return
+1610 print "you are on the baron's land, be careful in the distance lie th
+e ";
+1615 print "scared hills of anglesark"
+1620 return
+1630 print "the dark forest surrounds you  its      grotesque forms seem "
+:
+1635 print "to move closer":print "this place is evil"
+1640 gosub 3150
+1650 return
+1660 print "you are by the side of a small stream   you can follow the riv
+er ";
+1665 print ".bank both eastand west or you can retrest to the north"
+1670 return
+1680 print "a twisting track cuts through the       tangled bushes  this i
+s ";
+1685 print "wild boar":print "country"
+1690 return
+1700 print "you are beside a fast flowing river  a  bridge guarded by a ":
+
+1705 print "greedy troll lies tothe south   you must guess the fee that th
+e ";
+1707 print "beast charges to cross"
+1710 input f:if f>int(40*rnd(1))+20 then goto 1720
+1715 print "he scorns your tiny sum and chases you  away":return
+1720 if m(2)-f>0 then goto 1730
+1725 print "you guessed right but cannot pay the    toll   be on your way"
+
+1730 print:print "that is close enough, cross now"
+1740 m(2)=m(2)-f
+1750 return
+1850 print "before you is the mythical castle of    diamonds     do not ";
+
+1853 print "believe your eyes   what you see before you is an illusion  ca
+st ";
+1855 print"by the most powerful of all":print"magicians..the warlock of th
+e ";
+1857 print "dark":print "forest"
+1860 gosub 3150
+1870 return
+1880 print "before you lies the magnificent watch   tower of pendragon, a 
+";
+1885 print "splendid gothic   monument"
+1890 gosub 3150
+1900 return
+1910 print "you are at the entrance to a mysterious cave  the sun always s
+ets";
+1915 print " to the right  of the cave"
+1920 return
+1930 print "from your position in a small market    square you can see som
+e ";
+1935 print "stocks and a    pillory":print "a reminder of what will happen
+ to";
+1937 print " you ifyou fail"
+1940 return
+1950 rem *** end of game ***
+1960 print "it is very dark inside the cave"
+1970 for td=1 to 1500:next td:print "you hear a loud noise"
+1980 gosub 3320
+1990 print "its th-th-the c-c-c-creature"
+2000 for td=1 to 1000:next td
+2020 r=int(8*rnd(a))+1
+2200 print "if any of your attributes are less than":r;"the run away!!"
+2205 print:print "****** press any key to continue *******"
+2210 fr ll=1 to 500:get a$
+2220 if a$<>"" then print"phew! you made it back over the bridge":b=14:got
+o 250
+2230 next
+2240 if m(1)<r or m(2)<r or m(3)<r then print ".":goto 2910:rem clr scrn
+2250 print "let the fight begin....."
+2255 for td=1 to 1000:next td
+2260 print ".":rem clr scrn
+2270 dim k(3)
+2280 k(1)=int(50*rnd(1))+11
+2290 k(2)=int(45*rnd(1))+16
+2300 k(3)=int(12*rnd(1))+1
+2310 for y=1 to 3
+2320 for t=1 to 1000:next t
+2330 print chr$(147);
+2331 rem home crsr clr scn
+2335 print "...human:  ":m(y)
+2341 ren down crsr right crsr
+2350 print "...creature:  ";k(y)
+2360 if int(10*rnd(1))=3 then 2380
+2370 m(y)=m(y)-1
+2380 if int(10*rnd(1))=7 then 2400
+2390 k(y)=k(y)-1
+2400 if m(y)<1 then 2560
+2410 if k(y)<1 then 2520
+2420 gosub 3150
+2510 goto 2330
+2520 for t=1 to 100:next t
+2530 print ".":print "..........you win!!!!":for td=1 to 2000:next td
+2535 rem clr scrn down and right crsr
+2540 gosub 3320
+2550 v=v+1:if v=2 then 3190
+2555 if v<>2 then next y
+2560 for t=1 to 1000:next t
+2570 print ".":print "..........the creature wins!!"
+2575 rem clr screen down and right crsr
+2580 gosub 3320
+2590 w=w+1:if w=2 then 2910
+2600 next y
+2610 end
+2620 rem *** initialise ***
+2630 dim m(3):dim z(21,5):dim q(5,5)
+2640 m(1)=int(30*rnd(1))+21
+2650 m(2)=int(70*rnd(1))+11
+2660 m(3)=int(6*rnd(1))+1
+2670 for a=1 to 20
+2680 for b=1 to 5
+2690 read z(a,b)
+2700 next b,a
+2710 data 10,13,11,8,0,19,7,3,0,0
+2720 data 0,10,4,2,0,0,19,5,3,0
+2730 data 8,9,6,4,0,0,0,0,5,0
+2740 data 2,8,10,0,0,7,12,1,0,0
+2750 data 5,11,0,19,0,0,0,0,0,0
+2760 data 9,0,17,1,0,8,0,13,0,0
+2770 data 1,0,14,12,0,0,2,15,13,0
+2780 data 11,18,16,14,0,17,0,0,15,0
+2790 data 0,16,0,11,0,0,20,6,0,0
+2800 data 4,0,9,10,0,18,0,0,0,0
+2850 b=1:p=0
+2860 for a=1 to 5
+2870 ro=int(18*rnd(1))+2
+2880 if z(ro,5)=0 then z(ro,5)=a:goto 2890
+2885 goto 2870
+2890 next a
+2892 vo=54296:ad=54277:sr=54278:wl=54276:hf=54273:lf=54272
+2900 return
+2910 rem *** end of game ***
+2920 for t=1 to 24:print
+2930 next t
+2940 print "   you have been beaten"
+2950 gosub 3150
+2960 print "   your strength could"
+2970 gosub 3150
+2980 print "   not hold out as you"
+2990 gosub 3150
+3000 print "   tried in vain to find"
+3010 gosub 3150
+3020 print "   the secrets what the"
+3030 gosub 3150
+3040 print "   dark forest holds..."
+3050 for c=1 to 10
+3060 gosub 3150
+3070 next c
+3080 gosub 3150
+3090 print "   but do not give up, mortal"
+3100 gosub 3150
+3130 print "   to try again press any key"
+3140 get a$:if a$="" goto 3140
+3145 run
+3150 poke vo,15:poke ad,18:poke sr,132:poke wl,33
+3155 hx=int(40*rnd(1))+3:lx=int(100*rnd(1))+50
+3160 poke hf,hx:poke lf,lx:for td=1 to 75:next td:poke hf,0:poke lf,0:rp=r
+p+1
+3165 if rp>3 then rp=0:poke wl,0:poke ad,0:poke sr,0:return
+3170 goto 3155
+3180 for td=1 to 500:next td:return
+3190 rem *** you win ***
+3200 print ".":gosub 3150:rem clr scn
+3210 print "*************** well done **************":rem down crsr
+3220 print:print "  you have conquered the .dark forest"rem black
+3240 print:print ".you outwitted your enemies. explored theforest and foun
+d ";
+3241 rem white
+3245 print "the creature"
+3250 print:print " you have rid the contry of a great   threat and you sha
+ll ";
+3255 print "be rewarded"
+3260 print:input "what is your name";na$
+3270 print ".":for t=1 to 24:print:next:print".arise, sir ";na$
+3275 rem clr scn yellow
+3280 for t=1 to 20:print:for td=1 to 200:next:next
+3290 for tl=15 to 1 step -1:poke vo,tl:poke ad.18:poke sr.132:poke wl,17
+3300 poke hf,22:poke lf,227:for dd=1 to 500:next:next
+3305 poke vo,0:poke wl,0
+3310 goto 3310
+3320 poke vo,15:poke ad,18:poke sr,132:poke wl,33
+3325 hx=int(4*rnd(1))+2:lx=int(150*rnd(1))+75
+3330 poke hf,hx:poke lf,lx
+3340 for td=1 to 550:next
+3345 poke hf,0:poke lf,0
+3350 rp=rp+1:if rp>6 then rp=0:poke vo,0:poke wl,0:return
+3370 poke vo,15:poke ad,9:poke wl,17
+3380 poke hf,17:poke lf,37:for td=1 to 500:next:poke vo,0:poke wl,0:return
+
+3390 poke vo,15:poke ad,17:poke sr,24:poke wl,129
+3400 poke hf,25:poke lf,177:for td=1 to 75:next td:poke vo,0:poke wl,0:ret
+urn
+3410 print:print "you have come across grendal the hermit"
+3420 print "you have awoken him  he is not pleased":e=40+int(50*rnd(1))
+3430 return
+ready.
+
